@@ -4,15 +4,17 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import User.User;
+
 
 @Repository
-public class UserRepository {
+public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     public List<User> findAll() {
-        return entityManager.createQuery("FROM User", User.class).getResultList();
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     public User findById(Long id) {
@@ -29,7 +31,7 @@ public class UserRepository {
 
     public void delete(Long id) {
         User user = findById(id);
-        if (user != null) {
+        if(user != null){
             entityManager.remove(user);
         }
     }
