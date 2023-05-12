@@ -1,10 +1,18 @@
-package User;
+package model;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
     public Long getId() {
         return id;
     }
@@ -20,13 +28,4 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-
 }

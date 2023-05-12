@@ -1,36 +1,34 @@
-package UserRepository;
-
+package dao;
+import model.*;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import User.User;
-
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<User> findAll() {
+    public List<User> findAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-    public User findById(Long id) {
+    public User findUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 
-    public void save(User user) {
+    public void saveUser(User user) {
         entityManager.persist(user);
     }
 
-    public void update(User user) {
+    public void updateUser(User user) {
         entityManager.merge(user);
     }
 
-    public void delete(Long id) {
-        User user = findById(id);
+    public void deleteUser(Long id) {
+        User user = findUserById(id);
         if(user != null){
             entityManager.remove(user);
         }
